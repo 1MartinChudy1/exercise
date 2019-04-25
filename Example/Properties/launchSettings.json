@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Example": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\exercise\\Source C:\\exercise\\Destination"
+    }
+  }
+}
