@@ -2,10 +2,8 @@
 
 namespace IO
 {
-    public interface IArguments
+    public interface IInput
     {
-        IEnumerable<IArgument> Args { get; }
-
         IEnumerable<IArgument> Read(string[] args);
     }
 }

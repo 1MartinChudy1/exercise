@@ -8,7 +8,8 @@ namespace ConsoleIO
     {
         static void Main(string[] args)
         {
-            IEnumerable<IArgument> arguments = new Arguments().Read(args);
+            IInput inputReader = new InputReader();
+            IEnumerable<IArgument> arguments = inputReader.Read(args);
             IFilter filter = new Filter(arguments);
             ISource source = new Source(arguments);
             IDestination destination = new Destination(arguments);

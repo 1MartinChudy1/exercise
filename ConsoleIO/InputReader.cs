@@ -5,13 +5,11 @@ using IO;
 
 namespace ConsoleIO
 {
-    public class Arguments : IArguments
+    public class InputReader : IInput
     {
-        public Arguments()
+        public InputReader()
         {
         }
-
-        public IEnumerable<IArgument> Args { get; }
 
         public IEnumerable<IArgument> Read(string[] args)
         {
