@@ -1,4 +1,4 @@
-﻿namespace ConsoleIO
+﻿namespace Main
 
 {
     public class Argument

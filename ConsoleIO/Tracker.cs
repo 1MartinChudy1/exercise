@@ -1,6 +1,6 @@
-﻿namespace ConsoleIO
+﻿namespace Main
 {
-    public class Tracker : ITracker
+    public class Tracker
     {
         public Tracker()
         { }

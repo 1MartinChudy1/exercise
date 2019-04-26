@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ConsoleIO
+namespace Main
 {
     public class Destination : IDestination
     {

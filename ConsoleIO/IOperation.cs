@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 
-namespace ConsoleIO
+namespace Main
 {
     public interface IOperation
     {
         IEnumerable<IFile> Files { get; set; }
 
-        void Init(ISource source, IDestination destination, ITracker tracker);
+        void Init(ISource source, IDestination destination, Tracker tracker);
 
         void EngageOperation(ISource source, IDestination destination);
 
-        void TrackTime(ISource source, IDestination destination, ITracker tracker);
+        void TrackTime(ISource source, IDestination destination, Tracker tracker);
 
-        void ComputeSize(ITracker tracker);
+        void ComputeSize(Tracker tracker);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ConsoleIO
+namespace Main
 {
     class Program
     {
@@ -13,7 +13,7 @@ namespace ConsoleIO
             IDestination destination = new Destination(arguments);
             IEnumerable<IFile> folder = new SourceFolder(source.SourcePath.Value).Files;
             IOperation copyMachine = new Copy(folder, filter);
-            ITracker tracker = new Tracker(); 
+            var tracker = new Tracker(); 
             copyMachine.Init(source, destination, tracker);
             IPrintResults printer = new PrintResults();
             printer.Print(tracker);

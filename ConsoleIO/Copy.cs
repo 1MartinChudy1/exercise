@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace ConsoleIO
+namespace Main
 {
     public class Copy : IOperation
     {
@@ -14,12 +14,12 @@ namespace ConsoleIO
 
         public IEnumerable<IFile> Files { get; set; }
 
-        public void Init(ISource source, IDestination destination, ITracker tracker)
+        public void Init(ISource source, IDestination destination, Tracker tracker)
         {
             TrackTime(source, destination, tracker);
         }
 
-        public void TrackTime(ISource source, IDestination destination, ITracker tracker)
+        public void TrackTime(ISource source, IDestination destination, Tracker tracker)
         {
             var stopwatch = Stopwatch.StartNew();
             EngageOperation(source, destination);
@@ -37,12 +37,12 @@ namespace ConsoleIO
             }
         }
 
-        private void CountFiles(ITracker tracker)
+        private void CountFiles(Tracker tracker)
         {
             tracker.FileCount = Files.Count();
         }
 
-        public void ComputeSize(ITracker tracker)
+        public void ComputeSize(Tracker tracker)
         {
             tracker.SizeOfPayload = Files.Select(x => x.Size).Sum();
         }

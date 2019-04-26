@@ -1,7 +1,7 @@
-﻿namespace ConsoleIO
+﻿namespace Main
 {
     public interface IPrintResults
     {
-        void Print(ITracker tracker);
+        void Print(Tracker tracker);
     }
 }
