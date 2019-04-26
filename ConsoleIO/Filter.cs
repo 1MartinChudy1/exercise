@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using IO;
 
 namespace ConsoleIO
 {
     public class Filter : IFilter
     {
-        public Filter(IEnumerable<IArgument> arguments)
+        public Filter(IEnumerable<Argument> arguments)
         {
             Types = GetTypes(arguments);
         }
 
         public IEnumerable<string> Types { get; set; }
         
-        public IEnumerable<string> GetTypes(IEnumerable<IArgument> arguments)
+        public IEnumerable<string> GetTypes(IEnumerable<Argument> arguments)
         {
             if (arguments == null)
                 throw new ArgumentNullException();

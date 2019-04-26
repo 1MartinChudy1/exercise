@@ -1,5 +1,4 @@
 ﻿using System;
-using IO;
 
 namespace ConsoleIO
 {

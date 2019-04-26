@@ -1,4 +1,4 @@
-﻿namespace IO
+﻿namespace ConsoleIO
 {
     public interface IDestination
     {

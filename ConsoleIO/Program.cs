@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using IO;
-using Operations;
 
 namespace ConsoleIO
 {
@@ -9,16 +7,17 @@ namespace ConsoleIO
         static void Main(string[] args)
         {
             IInput inputReader = new InputReader();
-            IEnumerable<IArgument> arguments = inputReader.Read(args);
+            IEnumerable<Argument> arguments = inputReader.Read(args);
             IFilter filter = new Filter(arguments);
             ISource source = new Source(arguments);
             IDestination destination = new Destination(arguments);
             IEnumerable<IFile> folder = new SourceFolder(source.SourcePath.Value).Files;
-            IOperation copyMachine = new Copy(folder ,filter);
+            IOperation copyMachine = new Copy(folder, filter);
             ITracker tracker = new Tracker(); 
             copyMachine.Init(source, destination, tracker);
-            var printer = new PrintResults();
+            IPrintResults printer = new PrintResults();
             printer.Print(tracker);
         }
     }
 }
+ 

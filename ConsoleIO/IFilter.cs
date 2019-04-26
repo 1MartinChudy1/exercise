@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IO
+namespace ConsoleIO
 {
     public interface IFilter
     {

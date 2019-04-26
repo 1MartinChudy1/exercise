@@ -1,9 +1,7 @@
-﻿using IO;
-
-namespace ConsoleIO
+﻿namespace ConsoleIO
 
 {
-    public class Argument : IArgument
+    public class Argument
     {
         public Argument(string argName, string argValue)
         {

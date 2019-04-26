@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IO;
 
 namespace ConsoleIO
 {
     public class Source : ISource
     {  
-        public Source(IEnumerable<IArgument> arguments)
+        public Source(IEnumerable<Argument> arguments)
         {
             SourcePath = SetSource(arguments);
         }  
         
-        public IArgument SourcePath { get; set; }
+        public Argument SourcePath { get; set; }
 
 
-        public IArgument SetSource(IEnumerable<IArgument> arguments)
+        public Argument SetSource(IEnumerable<Argument> arguments)
         {
             if (arguments == null)
                 throw new ArgumentNullException();

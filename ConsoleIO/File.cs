@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using Operations;
-
-namespace ConsoleIO
+﻿namespace ConsoleIO
 {
     public class File : IFile
     {

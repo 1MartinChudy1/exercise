@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IO;
 
 namespace ConsoleIO
 {
     public class Destination : IDestination
     {
-        public Destination(IEnumerable<IArgument> arguments)
+        public Destination(IEnumerable<Argument> arguments)
         {
             DestinationPath = SetDestination(arguments);
         }  
 
-        public IArgument DestinationPath { get; set; }
+        public Argument DestinationPath { get; set; }
 
-        private IArgument SetDestination(IEnumerable<IArgument> argument)
+        private Argument SetDestination(IEnumerable<Argument> argument)
         {
             if (argument == null)
                 throw new ArgumentNullException();

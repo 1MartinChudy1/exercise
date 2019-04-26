@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using IO;
-using Operations;
 
 namespace ConsoleIO
 {
