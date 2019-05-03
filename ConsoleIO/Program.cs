@@ -11,13 +11,10 @@ namespace Main
             IFilter filter = new Filter(arguments);
             ISource source = new Source(arguments);
             IDestination destination = new Destination(arguments);
-            IEnumerable<IFile> folder = new SourceFolder(source.SourcePath.Value).Files;
-            IOperation copyMachine = new Copy(folder, filter);
-            var tracker = new Tracker(); 
-            copyMachine.Init(source, destination, tracker);
-            IPrintResults printer = new PrintResults();
-            printer.Print(tracker);
+            IEnumerable<IFile> folder = new SourceFolder(source).Files;
+
+            IMeasure measure = OperationStrategy.PickMeasurementType(new Argument("OperationType", args[3]));
+            measure.Track(OperationStrategy.PickOperationType(new Argument("name", args[3]), folder, filter), source, destination);
         }
     }
 }
- 

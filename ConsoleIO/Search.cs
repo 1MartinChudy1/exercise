@@ -1,34 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Main
 {
-    public class Copy : IOperation
+    public class Search : IOperation
     {
-        public Copy(IEnumerable<IFile> files, IFilter filter = null)
+        public Search(IEnumerable<IFile> files, IFilter filter)
         {
-            Files = Filtered(filter, files);
+            Files = Filtered(files, filter);
         }
 
         public IEnumerable<IFile> Files { get; set; }
 
-        public OperationResult EngageOperation(Argument source, Argument destination)
-        {
-            foreach (var file in this.Files)
-            {
-                System.IO.File.Copy(GetPath(source.Value, file.Name),
-                    GetPath(destination.Value, file.Name));
-            }
-            return new CopyResult(Files.Count(),0,Files.Select(x=>x.Size).Sum());
-        }
-
-        private IEnumerable<IFile> Filtered(IFilter filter, IEnumerable<IFile> files)
+        private IEnumerable<IFile> Filtered(IEnumerable<IFile> files, IFilter filter)
         {
             if (filter != null)
                 return files.Where(x => Whitelist(x.Name.Substring(x.Name.IndexOf('.')+1), filter));
             return files;
+        }
+
+        public OperationResult EngageOperation(Argument source, Argument destination)
+        {
+            return new SearchResult(Files.Count(), Files);
         }
 
         private bool Whitelist(string fileName, IFilter filter)
@@ -36,7 +30,6 @@ namespace Main
             var value =  Array.Exists(filter.Types.ToArray(), element => element == fileName);
             return value;
         }
-
 
         private string GetPath(string directoryPath, string fileName)
             => $"{directoryPath}\\{fileName}";

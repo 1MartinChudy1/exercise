@@ -2,6 +2,6 @@
 {
     public interface IPrintResults
     {
-        void Print(Tracker tracker);
+        void Print(OperationResult tracker);
     }
 }

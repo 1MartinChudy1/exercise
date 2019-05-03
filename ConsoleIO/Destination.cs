@@ -13,13 +13,13 @@ namespace Main
 
         public Argument DestinationPath { get; set; }
 
-        private Argument SetDestination(IEnumerable<Argument> argument)
+        private Argument SetDestination(IEnumerable<Argument> arguments)
         {
-            if (argument == null)
+            if (arguments == null)
                 throw new ArgumentNullException();
-            if (argument.ToList().Count < 2)
+            if (arguments.ToList().Count < 2)
                 throw new ArgumentOutOfRangeException();
-            return argument.First(x => x.Name == "Output");
+            return arguments.First(x => x.Name == "Output");
         }
     }
 }

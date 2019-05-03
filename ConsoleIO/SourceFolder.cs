@@ -5,16 +5,16 @@ namespace Main
 {
     public class SourceFolder
     {
-        public SourceFolder(string sourcePath)
+        public SourceFolder(ISource source)
         {
-            Files = Fill(sourcePath);
+            Files = Fill(source);
         }
 
         public IEnumerable<IFile> Files { get; set; }
 
-        private IEnumerable<IFile> Fill(string sourcePath)
+        private IEnumerable<IFile> Fill(ISource source)
         {
-            var directory = Directory.EnumerateFiles(sourcePath);
+            var directory = Directory.EnumerateFiles(source.SourcePath.Value);
             var files = new List<IFile>();
 
             foreach (var file in directory)

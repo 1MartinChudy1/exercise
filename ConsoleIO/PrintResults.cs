@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Main
 {
     public class PrintResults : IPrintResults
     {
-        public void Print(Tracker tracker)
+        public void Print(OperationResult tracker)
         {
-            Console.WriteLine($"FILE COUNT: {tracker.FileCount}\n" +
-                              $"DURATION OF OPERATION: {tracker.DurationOfOperation} ms\n" +
-                              $"TOTAL SIZE: {tracker.SizeOfPayload}");
+            var banan = tracker.GetType().GetProperties();
+            foreach (var propertyInfo in tracker.GetType().GetProperties())
+            {
+                Console.WriteLine(propertyInfo.GetValue(tracker));
+            }
         }
     }
 }
