@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using Main.Extensions;
 
 namespace Main
 {
@@ -8,36 +9,20 @@ namespace Main
     {
         public Move(IEnumerable<IFile> files, IFilter filter = null)
         {
-            Files = Filtered(filter, files);
+            Files = files.Filter(filter);
         }
 
         public IEnumerable<IFile> Files { get; set; }
-        
-        private IEnumerable<IFile> Filtered(IFilter filter, IEnumerable<IFile> files)
-        {
-            if (filter != null)
-                return files.Where(x => Whitelist(x.Name.Substring(x.Name.IndexOf('.')+1), filter));
-            return files;
-        }
 
         public OperationResult EngageOperation(Argument source, Argument destination)
         {
-            
+            var stopwatch = Stopwatch.StartNew();
             foreach (var file in this.Files)
             {
-                System.IO.File.Move(GetPath(source.Value, file.Name),
-                    GetPath(destination.Value, file.Name));
+                System.IO.File.Move(file.Name.GetPath(source.Value),
+                    file.Name.GetPath(destination.Value));
             }
-            return new MoveResult(Files.Count(),0,Files.Select(x=>x.Size).Sum());
+            return new MoveResult(Files.Count(),stopwatch.ElapsedMilliseconds,Files.Select(x=>x.Size).Sum());
         }
-
-        private bool Whitelist(string fileName, IFilter filter)
-        {
-            var value =  Array.Exists(filter.Types.ToArray(), element => element == fileName);
-            return value;
-        }
-
-        private string GetPath(string directoryPath, string fileName)
-            => $"{directoryPath}\\{fileName}";
     }
 }

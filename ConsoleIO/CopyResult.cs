@@ -8,7 +8,7 @@ namespace Main
     {
         public CopyResult(int fileCount, long operationDuration, long sizeOfPayload) : base(fileCount)
         {
-            OperationDuration = $"Operation duration: { operationDuration.ToString() }";
+            OperationDuration = $"Operation duration: { operationDuration.ToString() } ms";
             SizeOfPayload = $"Size of payload: { sizeOfPayload.ToString() }";
         }
 

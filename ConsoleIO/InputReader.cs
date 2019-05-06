@@ -17,6 +17,7 @@ namespace Main
             yield return new Argument("Input", args[0]);
             yield return new Argument("Output", args[1]);
             yield return new Argument("Filter", args[2]);
+            yield return new Argument("OperationType", args[3]);
         }
     }
 }

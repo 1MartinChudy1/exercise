@@ -7,7 +7,7 @@ namespace Main
     {
         public OperationResult(int fileCount)
         {
-            FileCount = $"File count: {fileCount.ToString()}"; 
+            FileCount = $"File count: { fileCount.ToString() }"; 
         }
 
         public string FileCount { get; }
