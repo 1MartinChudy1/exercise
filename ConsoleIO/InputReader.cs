@@ -11,8 +11,12 @@ namespace Main
 
         public IEnumerable<Argument> Read(string[] args)
         {
-            if (args.Length < 1)
+            if (args == null)
+                throw new ArgumentNullException();
+            if (args.Length < 4)
                 throw new ArgumentOutOfRangeException();
+            if ((args[3] != "Copy") || (args[3] != "Move") || (args[3] != "Search"))
+                throw new ArgumentException("Wrong operation type");
 
             yield return new Argument("Input", args[0]);
             yield return new Argument("Output", args[1]);

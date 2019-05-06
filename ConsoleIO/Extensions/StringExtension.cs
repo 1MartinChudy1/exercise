@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Main.Extensions
 {
@@ -22,6 +21,18 @@ namespace Main.Extensions
         {
             var value =  Array.Exists(filter.Types.ToArray(), element => element == fileName);
             return value;
+        }
+
+        public static OperationTypes ToEnum(this string argument)
+        {
+            if (string.IsNullOrEmpty(argument))
+            {
+                throw new ValidationException("Invalid operation type");
+            }
+
+            OperationTypes result;
+
+            return Enum.TryParse<OperationTypes>(argument, true, out result) ? result : OperationTypes.None;
         }
     }
 }
