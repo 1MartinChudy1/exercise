@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-namespace Main
+﻿namespace Main
 {
     public interface IType
     {

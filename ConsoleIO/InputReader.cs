@@ -15,7 +15,7 @@ namespace Main
                 throw new ArgumentNullException();
             if (args.Length < 4)
                 throw new ArgumentOutOfRangeException();
-            if ((args[3] != "Copy") || (args[3] != "Move") || (args[3] != "Search"))
+            if ((args[3] != "Copy") && (args[3] != "Move") && (args[3] != "Search"))
                 throw new ArgumentException("Wrong operation type");
 
             yield return new Argument("Input", args[0]);

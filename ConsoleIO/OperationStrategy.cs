@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Main.Extensions;
 
 namespace Main
 {
@@ -10,7 +12,7 @@ namespace Main
  
         public OperationStrategy(IEnumerable<IFile> files, IFilter filter)
         {
-            if ((files == null) || (filter == null))
+            if (files == null)
                 throw new NullReferenceException();
 
             _strategies.Add(OperationTypes.Copy, new CopyType(files, filter));
@@ -18,9 +20,9 @@ namespace Main
             _strategies.Add(OperationTypes.Search, new SearchType(files, filter));
         }
 
-        public IType PickMeasurementType(OperationTypes operationType)
+        public IType PickMeasurementType(IEnumerable<Argument> arguments)
         {
-            return _strategies[operationType];
+            return _strategies[arguments.ElementAt(3).Value.ToEnum()];
         }
     }
 }

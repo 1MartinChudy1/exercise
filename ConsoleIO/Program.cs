@@ -14,7 +14,8 @@ namespace Main
             ISource source = new Source(arguments);
             IDestination destination = new Destination(arguments);
             IEnumerable<IFile> folder = new SourceFolder(source).Files;
-            IType approach = new OperationStrategy(folder, filter).PickMeasurementType(arguments.ElementAt(3).Value.ToEnum());
+            OperationStrategy strategy = new OperationStrategy(folder, filter);
+            IType approach = strategy.PickMeasurementType(arguments);
             IMeasure measure = approach.MeasureType;
             IOperation operation = approach.OperationType;
             measure.Track(operation, source, destination);
