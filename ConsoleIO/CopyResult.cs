@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Drawing;
-
-namespace Main
+﻿namespace Main
 {
     public class CopyResult : OperationResult
     {
