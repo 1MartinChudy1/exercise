@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Main.Extensions
 {
-    public static class OperationExtension
+    public static class StringExtension
     {
         public static string GetPath(this string fileName, string directoryPath)
             => $"{directoryPath}\\{fileName}";
