@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace Main.Extensions
 {
-    public static class StringExtension
+    public static class StringExtensions
     {
         public static string GetPath(this string fileName, string directoryPath)
             => $"{directoryPath}\\{fileName}";
