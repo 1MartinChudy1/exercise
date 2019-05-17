@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Main.Extensions;
 
 namespace Main
 {
@@ -13,9 +14,10 @@ namespace Main
             ISource source = new Source(arguments);
             IDestination destination = new Destination(arguments);
             IEnumerable<IFile> folder = new SourceFolder(source).Files;
-
-            IMeasure measure = OperationStrategy.PickMeasurementType(arguments.First(x => x.Name == "OperationType"));
-            IOperation operation = OperationStrategy.PickOperationType(arguments.First(x => x.Name == "OperationType"), folder, filter);
+            OperationStrategy strategy = new OperationStrategy(folder, filter);
+            IType approach = strategy.PickMeasurementType(arguments);
+            IMeasure measure = approach.MeasureType;
+            IOperation operation = approach.OperationType;
             measure.Track(operation, source, destination);
         }
     }

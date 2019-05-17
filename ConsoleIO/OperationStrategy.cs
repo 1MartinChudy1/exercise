@@ -1,31 +1,28 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
+using Main.Extensions;
 
 namespace Main
 {
-    public static class OperationStrategy
+    public class OperationStrategy
     {
-        public static IMeasure PickMeasurementType(Argument argument)
+        private static Dictionary<OperationTypes, IType> _strategies =
+            new Dictionary<OperationTypes, IType>();
+ 
+        public OperationStrategy(IEnumerable<IFile> files, IFilter filter)
         {
-            switch (argument.Value)
-            {
-                case "Copy": return new CopyMeasure();
-                case "Move": return new MoveMeasure();
-                case "Search": return new SearchMeasure();
-                default: return new Measure();
-            }
+            if (files == null)
+                throw new NullReferenceException();
+
+            _strategies.Add(OperationTypes.Copy, new CopyType(files, filter));
+            _strategies.Add(OperationTypes.Move, new MoveType(files, filter));
+            _strategies.Add(OperationTypes.Search, new SearchType(files, filter));
         }
 
-        public static IOperation PickOperationType(Argument argument, IEnumerable<IFile> files, IFilter filter)
+        public IType PickMeasurementType(IEnumerable<Argument> arguments)
         {
-            switch (argument.Value)
-            {
-                case "Copy": return new Copy(files, filter);
-                case "Move": return new Move(files, filter);
-                case "Search": return new Search(files, filter);
-                default: return null;
-            }
+            return _strategies[arguments.ElementAt(3).Value.ToEnum()];
         }
     }
 }
