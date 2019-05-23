@@ -12,7 +12,7 @@ namespace Main.Extensions
 
         public static IEnumerable<IFile> Filter(this IEnumerable<IFile> files, IFilter filter = null)
         {
-            if (filter != null)
+            if (filter?.Types != null)
                 return files.Where(x => Whitelist(x.Name.Substring(x.Name.IndexOf('.')+1), filter));
             return files;
         }

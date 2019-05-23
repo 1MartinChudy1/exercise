@@ -17,8 +17,10 @@ namespace Main
         {
             if (arguments == null)
                 throw new ArgumentNullException();
-            if (arguments.ToList().Count < 3)
-                Types = null;
+            if (arguments.First(x => x.Name == "Filter").Value == string.Empty)
+            {
+                return null;
+            }
             var filter = arguments.First(x => x.Name == "Filter") as Argument;
             return filter?.Value.Split(',');
         }
