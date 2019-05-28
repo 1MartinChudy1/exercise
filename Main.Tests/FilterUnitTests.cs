@@ -29,7 +29,7 @@ namespace Main.Tests
             Assert.NotNull(filter.Types);
             for (int i = 0; i < filter.Types.Count() - 1; i++)
             {
-                Assert.Equal(filter.Types.ElementAt(i), filterArgument.ElementAt(i));
+                Assert.Equal(filterArgument.ElementAt(i), filter.Types.ElementAt(i));
             }
         }
 
