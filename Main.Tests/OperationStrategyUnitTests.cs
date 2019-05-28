@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Main.Tests
 {
-    [TestClass]
     public class OperationStrategyUnitTests
     {
-        [TestMethod]
+        [Fact]
         public void OperationStrategy_ShouldSelectCopyType()
         {
             // Arrange
@@ -28,10 +27,10 @@ namespace Main.Tests
             IType type = operationStrategy.PickMeasurementType(arguments);
 
             // Assert
-            Assert.IsTrue(type.GetType() == typeof(CopyType));
+            Assert.True(type.GetType() == typeof(CopyType));
         }
 
-        [TestMethod]
+        [Fact]
         public void OperationStrategy_ShouldSelectMoveType()
         {
             // Arrange
@@ -51,10 +50,10 @@ namespace Main.Tests
             IType type = operationStrategy.PickMeasurementType(arguments);
 
             // Assert
-            Assert.IsTrue(type.GetType() == typeof(MoveType));
+            Assert.True(type.GetType() == typeof(MoveType));
         }
 
-        [TestMethod]
+        [Fact]
         public void OperationStrategy_ShouldSelectSearchType()
         {
             // Arrange
@@ -73,11 +72,10 @@ namespace Main.Tests
             IType type = operationStrategy.PickMeasurementType(arguments);
 
             // Assert
-            Assert.IsTrue(type.GetType() == typeof(SearchType));
+            Assert.True(type.GetType() == typeof(SearchType));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ValidationException))]
+        [Fact]
         public void OperationStrategy_ShouldThrowValidationException()
         {
             // Arrange
@@ -93,11 +91,13 @@ namespace Main.Tests
 
             // Act & Assert
             OperationStrategy operationStrategy = new OperationStrategy(files, filter);
-            IType type = operationStrategy.PickMeasurementType(arguments);
+            Action act = () => operationStrategy.PickMeasurementType(arguments);
+
+            // Assert
+            Assert.Throws<ValidationException>(act);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
+        [Fact]
         public void OperationStrategy_ShouldThrowNullReferenceException()
         {
             // Arrange
@@ -112,8 +112,10 @@ namespace Main.Tests
             IFilter filter = null;
 
             // Act & Assert
-            OperationStrategy operationStrategy = new OperationStrategy(files, filter);
-            IType type = operationStrategy.PickMeasurementType(arguments);
+            Action act = () => new OperationStrategy(files, filter);
+
+            // Assert
+            Assert.Throws<NullReferenceException>(act);
         }
     }
 }
