@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Main.Tests
 {
-    [TestClass]
     public class FilterUnitTests
     {
-        [TestMethod]
+        [Fact]
         public void Filter_ShouldWorkCorrectly()
         {
             // Arrange
@@ -26,26 +25,28 @@ namespace Main.Tests
             
 
             // Assert
-            Assert.IsNotNull(filter);
-            Assert.IsNotNull(filter.Types);
+            Assert.NotNull(filter);
+            Assert.NotNull(filter.Types);
             for (int i = 0; i < filter.Types.Count() - 1; i++)
             {
-                Assert.AreEqual(filter.Types.ElementAt(i), filterArgument.ElementAt(i));
+                Assert.Equal(filter.Types.ElementAt(i), filterArgument.ElementAt(i));
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void Filter_ShouldThrowArgumentNullException()
         {
             // Arrange
             IEnumerable<Argument> arguments = null;
 
-            // Act & Assert
-            IFilter filter = new Filter(arguments);
+            // Act
+            Action act = () => new Filter(arguments);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(act);
         }
 
-        [TestMethod]
+        [Fact]
         public void Filter_ShouldBeEmpty()
         {
             // Arrange
@@ -60,8 +61,8 @@ namespace Main.Tests
             // Act
             IFilter filter = new Filter(arguments);
 
-            Assert.IsNotNull(filter);
-            Assert.IsNull(filter.Types);
+            Assert.NotNull(filter);
+            Assert.Null(filter.Types);
         }
     }
 }
