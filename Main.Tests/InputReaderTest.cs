@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Main.Tests
 {
-    [TestClass]
     public class InputReaderTest
     {
-        [TestMethod]
-        [DataRow("C:\\Source", "C:\\Destination", "doc,exe", "Copy")]
-        [DataRow("C:\\Source", "C:\\Destination", "", "Search")]
+        [Theory]
+        [InlineData("C:\\Source", "C:\\Destination", "doc,exe", "Copy")]
+        [InlineData("C:\\Source", "C:\\Destination", "", "Search")]
         public void InputReader_ShouldWorkCorrectly(string source = null, string destination = null,
             string filter = null, string operation = null)
         {
@@ -22,46 +21,49 @@ namespace Main.Tests
             IEnumerable<Argument> arguments = reader.Read(args);
 
             // Assert
-            Assert.IsNotNull(arguments);
+            Assert.NotNull(arguments);
 
-            Assert.AreEqual(arguments.ElementAt(0).Name, "Input");
-            Assert.AreEqual(arguments.ElementAt(0).Value, source);
+            Assert.Equal("Input", arguments.ElementAt(0).Name);
+            Assert.Equal(source, arguments.ElementAt(0).Value);
             
-            Assert.AreEqual(arguments.ElementAt(1).Name, "Output");
-            Assert.AreEqual(arguments.ElementAt(1).Value, destination);
+            Assert.Equal("Output", arguments.ElementAt(1).Name);
+            Assert.Equal(destination, arguments.ElementAt(1).Value);
             
-            Assert.AreEqual(arguments.ElementAt(2).Name, "Filter");
-            Assert.AreEqual(arguments.ElementAt(2).Value, filter);
+            Assert.Equal("Filter", arguments.ElementAt(2).Name);
+            Assert.Equal(filter, arguments.ElementAt(2).Value);
 
-            Assert.AreEqual(arguments.ElementAt(3).Name, "OperationType");
-            Assert.AreEqual(arguments.ElementAt(3).Value, operation);
+            Assert.Equal("OperationType", arguments.ElementAt(3).Name);
+            Assert.Equal(operation, arguments.ElementAt(3).Value);
         }
         
-        [TestMethod]
-        [DataRow(new string[]{"C:\\Source", "C:\\Destination", "Copy"})]
-        [DataRow(new string[]{"C:\\Source", "Search"})]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void InputReader_ShouldThrowArgumentOutOfRangeException(string[] args)
+        [Theory]
+        [InlineData("C:\\Source,C:\\Destination,Copy")]
+        [InlineData("C:\\Source,Search")]
+        public void InputReader_ShouldThrowArgumentOutOfRangeException(string arguments)
         {
+            // Arrange
+            string[] args = arguments.Split(',');
+
             // Act
             InputReader reader = new InputReader();
             var test = reader.Read(args);
+            Action act = () => Assert.Equal("Input", test.ElementAt(0).Name);
 
             // Assert
-            Assert.AreEqual(test.ElementAt(0).Name, "Input");
+            Assert.Throws<ArgumentOutOfRangeException>(act);
         }
 
-        [TestMethod]
-        [DataRow(null)]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Theory]
+        [InlineData(null)]
         public void InputReader_ShouldThrowArgumentNullException(string[] args)
         {
             // Act
             InputReader reader = new InputReader();
             var test = reader.Read(args);
+            Action act = () => Assert.Equal("Input", test.ElementAt(0).Name);
 
             // Assert
-            Assert.AreEqual(test.ElementAt(0).Name, "Input");
+            Assert.Throws<ArgumentNullException>(act);
         }
     }
 }
