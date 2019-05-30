@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.TestPlatform.CoreUtilities.Helpers;
 using Xunit;
 
 namespace Main.Tests
@@ -64,6 +65,22 @@ namespace Main.Tests
 
             // Assert
             Assert.Throws<ArgumentNullException>(act);
+        }
+
+        [Theory]
+        [InlineData("C:\\Source,C:\\Destination,,")]
+        public void InputReader_ShouldThrowArgumentException(string args)
+        {
+            // Arrange
+            string[] arguments = args.Split(',');
+
+            // Act
+            InputReader reader = new InputReader();
+            var test = reader.Read(arguments);
+            Action act = () => Assert.Equal("Input", test.ElementAt(0).Name);
+
+            // Assert
+            Assert.Throws<ArgumentException>(act);
         }
     }
 }
