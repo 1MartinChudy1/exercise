@@ -7,7 +7,7 @@ namespace Main
 {
     public class OperationStrategy
     {
-        private static Dictionary<OperationTypes, IType> _strategies =
+        private Dictionary<OperationTypes, IType> _strategies =
             new Dictionary<OperationTypes, IType>();
  
         public OperationStrategy(IEnumerable<IFile> files, IFilter filter)

@@ -1,29 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Xunit;
 
 namespace Main.Tests
 {
     public class OperationStrategyUnitTests
     {
+        private static IEnumerable<Argument> arguments = new List<Argument>
+        {
+            new Argument("Input", "C:\\Source"),
+            new Argument("Output", "C:\\Destination"),
+            new Argument("Filter", ""),
+            new Argument("OperationType", "")
+        };
+
+
         [Fact]
         public void OperationStrategy_ShouldSelectCopyType()
         {
-            // Arrange
+            // Assert
             IEnumerable<IFile> files = new List<IFile>();
-            IEnumerable<Argument> arguments= new List<Argument>
-            {
-                new Argument("Input", "C:\\Source"),
-                new Argument("Output", "C:\\Destination"),
-                new Argument("Filter", ""),
-                new Argument("OperationType", "Copy")
-            };
+            arguments.First(x => x.Name == "OperationType").Value = "Copy";
             IFilter filter = new Filter(arguments);
 
-
             // Act
-            OperationStrategy operationStrategy = new OperationStrategy(files, filter);
+            OperationStrategy operationStrategy = null;
+            operationStrategy = new OperationStrategy(files, filter);
             IType type = operationStrategy.PickMeasurementType(arguments);
 
             // Assert
@@ -35,15 +39,8 @@ namespace Main.Tests
         {
             // Arrange
             IEnumerable<IFile> files = new List<IFile>();
-            IEnumerable<Argument> arguments= new List<Argument>
-            {
-                new Argument("Input", "C:\\Source"),
-                new Argument("Output", "C:\\Destination"),
-                new Argument("Filter", ""),
-                new Argument("OperationType", "Move")
-            };
+            arguments.First(x => x.Name == "OperationType").Value = "Move";
             IFilter filter = new Filter(arguments);
-
 
             // Act
             OperationStrategy operationStrategy = new OperationStrategy(files, filter);
@@ -58,13 +55,7 @@ namespace Main.Tests
         {
             // Arrange
             IEnumerable<IFile> files = new List<IFile>();
-            IEnumerable<Argument> arguments= new List<Argument>
-            {
-                new Argument("Input", "C:\\Source"),
-                new Argument("Output", "C:\\Destination"),
-                new Argument("Filter", ""),
-                new Argument("OperationType", "Search")
-            };
+            arguments.First(x => x.Name == "OperationType").Value = "Search";
             IFilter filter = new Filter(arguments);
 
             // Act
@@ -80,13 +71,7 @@ namespace Main.Tests
         {
             // Arrange
             IEnumerable<IFile> files = new List<IFile>();
-            IEnumerable<Argument> arguments= new List<Argument>
-            {
-                new Argument("Input", "C:\\Source"),
-                new Argument("Output", "C:\\Destination"),
-                new Argument("Filter", ""),
-                new Argument("OperationType", "")
-            };
+            arguments.First(x => x.Name == "OperationType").Value = "";
             IFilter filter = new Filter(arguments);
 
             // Act & Assert
@@ -102,13 +87,7 @@ namespace Main.Tests
         {
             // Arrange
             IEnumerable<IFile> files = null;
-            IEnumerable<Argument> arguments= new List<Argument>
-            {
-                new Argument("Input", "C:\\Source"),
-                new Argument("Output", "C:\\Destination"),
-                new Argument("Filter", ""),
-                new Argument("OperationType", "")
-            };
+            arguments.First(x => x.Name == "OperationType").Value = "";
             IFilter filter = null;
 
             // Act & Assert
