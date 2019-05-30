@@ -67,22 +67,6 @@ namespace Main.Tests
         }
 
         [Fact]
-        public void OperationStrategy_ShouldThrowValidationException()
-        {
-            // Arrange
-            IEnumerable<IFile> files = new List<IFile>();
-            arguments.First(x => x.Name == "OperationType").Value = "";
-            IFilter filter = new Filter(arguments);
-
-            // Act & Assert
-            OperationStrategy operationStrategy = new OperationStrategy(files, filter);
-            Action act = () => operationStrategy.PickMeasurementType(arguments);
-
-            // Assert
-            Assert.Throws<ValidationException>(act);
-        }
-
-        [Fact]
         public void OperationStrategy_ShouldThrowNullReferenceException()
         {
             // Arrange
