@@ -11,9 +11,9 @@ namespace Main
             Types = GetTypes(arguments);
         }
 
-        public IEnumerable<string> Types { get; set; }
+        public string Types { get; set; }
         
-        public IEnumerable<string> GetTypes(IEnumerable<Argument> arguments)
+        public string GetTypes(IEnumerable<Argument> arguments)
         {
             if (arguments == null)
                 throw new ArgumentNullException();
@@ -22,7 +22,7 @@ namespace Main
                 return null;
             }
             var filter = arguments.First(x => x.Name == "Filter") as Argument;
-            return filter?.Value.Split(',');
+            return filter?.Value;
         }
     }
 }

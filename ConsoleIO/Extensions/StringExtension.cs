@@ -18,10 +18,8 @@ namespace Main.Extensions
         }
 
         private static bool Whitelist(string fileName, IFilter filter)
-        {
-            var value =  Array.Exists(filter.Types.ToArray(), element => element == fileName);
-            return value;
-        }
+            => fileName.Contains(filter.Types);
+        
 
         public static OperationTypes ToEnum(this string argument)
         {

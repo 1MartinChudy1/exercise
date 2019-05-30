@@ -7,30 +7,28 @@ namespace Main.Tests
 {
     public class FilterUnitTests
     {
+        private IEnumerable<Argument> arguments = new List<Argument>
+        {
+            new Argument("Input", "C:\\source"), 
+            new Argument("Output", "C:\\Destination"),
+            new Argument("Filter", ""),
+            new Argument("OperationType", "Move")
+        };
+
         [Fact]
         public void Filter_ShouldWorkCorrectly()
         {
             // Arrange
-            IEnumerable<Argument> arguments = new List<Argument>
-            {
-                new Argument("Input", "C:\\source"), 
-                new Argument("Output", "C:\\Destination"),
-                new Argument("Filter", "c,cpp,cs"),
-                new Argument("OperationType", "Move")
-            };
+            arguments.First(x => x.Name == "Filter").Value = "document";
 
             // Act
-            IEnumerable<string> filterArgument = arguments.ElementAt(2)?.Value.Split(',');
             IFilter filter = new Filter(arguments);
             
 
             // Assert
             Assert.NotNull(filter);
             Assert.NotNull(filter.Types);
-            for (int i = 0; i < filter.Types.Count() - 1; i++)
-            {
-                Assert.Equal(filterArgument.ElementAt(i), filter.Types.ElementAt(i));
-            }
+            Assert.Equal("document", filter.Types);
         }
 
         [Fact]
@@ -49,14 +47,6 @@ namespace Main.Tests
         [Fact]
         public void Filter_ShouldBeEmpty()
         {
-            // Arrange
-            IEnumerable<Argument> arguments = new List<Argument>
-            {
-                new Argument("Input", "C:\\source"), 
-                new Argument("Output", "C:\\Destination"),
-                new Argument("Filter", ""),
-                new Argument("OperationType", "Move")
-            };
 
             // Act
             IFilter filter = new Filter(arguments);
