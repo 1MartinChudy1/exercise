@@ -22,7 +22,7 @@ namespace Main
 
         public IType PickMeasurementType(IEnumerable<Argument> arguments)
         {
-            return _strategies[arguments.ElementAt(3).Value];
+            return _strategies[arguments.First(x => x.Name == "OperationType").Value];
         }
     }
 }
