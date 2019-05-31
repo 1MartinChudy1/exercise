@@ -6,6 +6,6 @@ namespace Main
     {
         IEnumerable<IFile> Files { get; set; }
         
-        OperationResult EngageOperation(Argument source, Argument destination);
+        OperationResult EngageOperation(IEnumerable<Argument> arguments);
     }
 }

@@ -14,7 +14,7 @@ namespace Main
 
         public IEnumerable<IFile> Files { get; set; }
 
-        public OperationResult EngageOperation(Argument source, Argument destination)
+        public OperationResult EngageOperation(IEnumerable<Argument> arguments)
         {
             return new SearchResult(Files.Count(), Files);
         }

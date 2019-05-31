@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestPlatform.CoreUtilities.Helpers;
 using Xunit;
 
 namespace Main.Tests
@@ -24,17 +23,10 @@ namespace Main.Tests
             // Assert
             Assert.NotNull(arguments);
 
-            Assert.Equal("Input", arguments.ElementAt(0).Name);
-            Assert.Equal(source, arguments.ElementAt(0).Value);
-            
-            Assert.Equal("Output", arguments.ElementAt(1).Name);
-            Assert.Equal(destination, arguments.ElementAt(1).Value);
-            
-            Assert.Equal("Filter", arguments.ElementAt(2).Name);
-            Assert.Equal(filter, arguments.ElementAt(2).Value);
-
-            Assert.Equal("OperationType", arguments.ElementAt(3).Name);
-            Assert.Equal(operation, arguments.ElementAt(3).Value);
+            Assert.Equal(source, arguments.First(x => x.Name == "Input").Value);
+            Assert.Equal(destination, arguments.First(x => x.Name == "Output").Value);
+            Assert.Equal(filter, arguments.First(x => x.Name == "Filter").Value);
+            Assert.Equal(operation, arguments.First(x => x.Name == "OperationType").Value);
         }
         
         [Theory]
@@ -48,7 +40,7 @@ namespace Main.Tests
             // Act
             InputReader reader = new InputReader();
             var test = reader.Read(args);
-            Action act = () => Assert.Equal("Input", test.ElementAt(0).Name);
+            Action act = () => Assert.Equal("Input", test.First().Name);
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(act);
@@ -61,7 +53,7 @@ namespace Main.Tests
             // Act
             InputReader reader = new InputReader();
             var test = reader.Read(args);
-            Action act = () => Assert.Equal("Input", test.ElementAt(0).Name);
+            Action act = () => Assert.Equal("Input", test.First().Name);
 
             // Assert
             Assert.Throws<ArgumentNullException>(act);
@@ -77,7 +69,7 @@ namespace Main.Tests
             // Act
             InputReader reader = new InputReader();
             var test = reader.Read(arguments);
-            Action act = () => Assert.Equal("Input", test.ElementAt(0).Name);
+            Action act = () => Assert.Equal("Input", test.First().Name);
 
             // Assert
             Assert.Throws<ArgumentException>(act);
