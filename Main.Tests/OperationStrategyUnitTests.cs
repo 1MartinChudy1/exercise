@@ -16,7 +16,6 @@ namespace Main.Tests
             new Argument("OperationType", "")
         };
 
-
         [Fact]
         public void OperationStrategy_ShouldSelectCopyType()
         {
@@ -64,6 +63,8 @@ namespace Main.Tests
 
             // Assert
             Assert.True(type.GetType() == typeof(SearchType));
+
+            
         }
 
         [Fact]
