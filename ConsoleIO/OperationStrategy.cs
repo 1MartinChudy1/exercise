@@ -7,22 +7,22 @@ namespace Main
 {
     public class OperationStrategy
     {
-        private static Dictionary<OperationTypes, IType> _strategies =
-            new Dictionary<OperationTypes, IType>();
+        private Dictionary<string, IType> _strategies =
+            new Dictionary<string, IType>();
  
         public OperationStrategy(IEnumerable<IFile> files, IFilter filter)
         {
             if (files == null)
                 throw new NullReferenceException();
 
-            _strategies.Add(OperationTypes.Copy, new CopyType(files, filter));
-            _strategies.Add(OperationTypes.Move, new MoveType(files, filter));
-            _strategies.Add(OperationTypes.Search, new SearchType(files, filter));
+            _strategies.Add(nameof(Copy), new CopyType(files, filter));
+            _strategies.Add(nameof(Move), new MoveType(files, filter));
+            _strategies.Add(nameof(Search), new SearchType(files, filter));
         }
 
         public IType PickMeasurementType(IEnumerable<Argument> arguments)
         {
-            return _strategies[arguments.ElementAt(3).Value.ToEnum()];
+            return _strategies[arguments.First(x => x.Name == "OperationType").Value];
         }
     }
 }

@@ -7,6 +7,6 @@ namespace Main
     {
         IEnumerable<IFile> Files { get; set; }
 
-        void Track(IOperation operation, ISource source, IDestination destination);
+        void Track(IOperation operation, IEnumerable<Argument> arguments);
     }
 }

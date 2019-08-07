@@ -14,13 +14,13 @@ namespace Main
 
         public IEnumerable<IFile> Files { get; set; }
 
-        public OperationResult EngageOperation(Argument source, Argument destination)
+        public OperationResult EngageOperation(IEnumerable<Argument> arguments)
         {
             var stopwatch = Stopwatch.StartNew();
             foreach (var file in this.Files)
             {
-                System.IO.File.Move(file.Name.GetPath(source.Value),
-                    file.Name.GetPath(destination.Value));
+                System.IO.File.Move(file.Name.GetPath(arguments.First(x => x.Name == "Input").Value),
+                    file.Name.GetPath(arguments.First(x => x.Name == "Output").Value));
             }
             return new MoveResult(Files.Count(),stopwatch.ElapsedMilliseconds,Files.Select(x=>x.Size).Sum());
         }
