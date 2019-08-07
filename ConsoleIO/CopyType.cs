@@ -2,7 +2,7 @@
 
 namespace Main
 {
-    internal class CopyType : IType
+    public class CopyType : IType
     {
         public CopyType(IEnumerable<IFile> files, IFilter filter)
         {
