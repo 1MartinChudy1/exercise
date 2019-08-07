@@ -9,7 +9,7 @@ namespace Main
     {
         public IEnumerable<IFile> Files { get; set; }
 
-        public virtual void Track(IOperation operation, ISource source, IDestination destination)
+        public virtual void Track(IOperation operation, IEnumerable<Argument> arguments)
         {
             throw new NotImplementedException();
         }
